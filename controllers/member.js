@@ -1,7 +1,7 @@
 const Member = require("../models/member");
 
 const async = require("async");
-const { body, validationResult } = require("express-validator");
+const { body, check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 exports.member_create_get = (req, res, next) => {
@@ -13,6 +13,7 @@ exports.member_create_post = [
     // vali and sani
     body("username", "Username cant be less than 3chars").trim().isLength({min: 3}).escape(),
     body("password", "Password cant be less than 3chars").trim().isLength({min: 3}).escape(),
+    check("confirmpassword", "Passwords do not match").custom((value, { req }) => value === req.body.password),                                                           
 
     (req, res, next) => {
         
