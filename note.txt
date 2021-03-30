@@ -1,4 +1,0 @@
-Using express generator with --css sass installs node sass which is deprecated. Resulting in errors.
-http-errors module was missing. Couldnt install packages without dealing with sass
-After deleting all, express generator without sass.
-http-errors module still missing, installed it afterwards
