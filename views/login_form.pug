@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+    h1 #{title}
+
+    form(method="POST" action="")
+        div
+            input(type="text" placeholder="Username" name="username")
+            input(type="text" plceholder="Password" name="password")
+        button(type="submit") Log In
+
+    if errors 
+        ul
+            for error in errors
+                li!= error.msg
