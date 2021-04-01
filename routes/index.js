@@ -18,7 +18,7 @@ router.post("/create_account", member_controller.member_create_post);
 // login get and post
 router.get("/login", member_controller.member_login_get);
 router.post("/login",  passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/clubhouse",
   failureRedirect: "/login"
 }));
 
