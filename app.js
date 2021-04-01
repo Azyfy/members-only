@@ -10,6 +10,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
+const Member = require("./models/member");
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -18,7 +20,6 @@ var app = express();
 
 // DB
 const mongoose = require("mongoose");
-const passport = require('passport');
 const mongoDB = process.env.MONGO_DB;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -32,8 +33,8 @@ passport.use(
       };
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
-      }
-      bcrypt.compare(password, member.password_hash, (err, res) => {
+      } 
+      bcrypt.compare(password, user.password_hash, (err, res) => {
         if (res) {
           // passwords match
           return done(null, user)
@@ -41,14 +42,14 @@ passport.use(
           // passwords dont match
           return done(null, false, { message: "Incorrect password" })
         }
-      })
-      return done(null, user);
+      })  
+     
     });
   })
 );
 
-passport.serializeUser(function(member, done) {
-  done(null, member.id);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
