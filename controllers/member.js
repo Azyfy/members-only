@@ -21,7 +21,7 @@ exports.member_create_post = [
         
 
         const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync("req.body.password", salt);
+        const hash = bcrypt.hashSync(req.body.password, salt);
         console.log(hash);
 
         const member = new Member( 
@@ -55,3 +55,7 @@ exports.member_create_post = [
 
     }
 ];
+
+exports.member_login_get = (req, res, next) => {
+    res.render("login_form", { title: "Login" });
+};
