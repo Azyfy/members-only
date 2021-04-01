@@ -4,10 +4,10 @@ block content
   h1= title
   p Welcome to #{title}
 
-  if(!user)
+  if(!currentUser)
     a(href="/create_account") Create account
     a(href="/login") Login
   else 
-    p Enter the clubhouse #{user.username}
+    p Enter the clubhouse #{currentUser.username}
     a(href="/clubhouse") Enter clubhouse
     a(href="/logout") Log out
