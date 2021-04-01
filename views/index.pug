@@ -4,5 +4,9 @@ block content
   h1= title
   p Welcome to #{title}
 
-  a(href="/create_account") Create account
-  a(href="/login") Login
+  if(!user)
+    a(href="/create_account") Create account
+    a(href="/login") Login
+  else 
+    p Enter the clubhouse #{user.username}
+    a(href="/clubhouse") Enter clubhouse
