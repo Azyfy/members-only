@@ -44,6 +44,16 @@ passport.use(
   })
 );
 
+passport.serializeUser(function(member, done) {
+  done(null, member.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  Member.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
