@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 require('dotenv').config()
+const bcrypt = require("bcryptjs");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,10 +15,34 @@ var app = express();
 
 // DB
 const mongoose = require("mongoose");
+const passport = require('passport');
 const mongoDB = process.env.MONGO_DB;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error;"));
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    Member.findOne({ username: username }, (err, user) => {
+      if (err) { 
+        return done(err);
+      };
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      }
+      bcrypt.compare(password, member.password_hash, (err, res) => {
+        if (res) {
+          // passwords match
+          return done(null, user)
+        } else {
+          // passwords dont match
+          return done(null, false, { message: "Incorrect password" })
+        }
+      })
+      return done(null, user);
+    });
+  })
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
