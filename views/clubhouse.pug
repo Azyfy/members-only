@@ -5,3 +5,13 @@ block content
 
  
     p Welcome to the clubhouse #{currentUser.username}
+
+    a(href="/clubhouse/create_message") New message
+
+    if messages 
+        each message in messages
+            div 
+                h5 #{message.member.username}
+                p #{message.message}
+    else    
+        p No messages
