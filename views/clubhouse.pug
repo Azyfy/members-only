@@ -6,12 +6,16 @@ block content
  
     p Welcome to the clubhouse #{currentUser.username}
 
-    a(href="/clubhouse/create_message") New message
+    if currentUser.club_member
+        a(href="/clubhouse/create_message") New message
+    else 
+        a(href="/clubhouse/join_club") Join the club
 
     if messages 
         each message in messages
             div 
-                h5 #{message.member.username}
+                if currentUser.club_member
+                    h5 #{message.member.username}
                 p #{message.message}
     else    
         p No messages

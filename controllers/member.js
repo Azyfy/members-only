@@ -22,12 +22,12 @@ exports.member_create_post = [
 
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
-        console.log(hash);
 
         const member = new Member( 
             {
                 username: req.body.username,
                 password_hash: hash,
+                club_member: false,
             }
         );
 
@@ -58,4 +58,15 @@ exports.member_create_post = [
 
 exports.member_login_get = (req, res, next) => {
     res.render("login_form", { title: "Login" });
+};
+
+exports.member_club = (req, res, next) => {
+    console.log("ID", res.locals.currentUser.id)
+
+    Member.findById(res.locals.currentUser.id, function (err, member) {
+        if (err) { return next(err); }
+        member.club_member = true;
+        member.save();
+        res.redirect("/clubhouse");
+      });
 };
