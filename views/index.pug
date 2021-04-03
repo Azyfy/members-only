@@ -2,12 +2,10 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Enter the clubhouse to see the posts
+  p Create an account to be able to write a message
+  p And join the club to see who posts what!
+  p Admins can delete posts
 
-  if(!currentUser)
-    a(href="/create_account") Create account
-    a(href="/login") Login
-  else 
-    p Enter the clubhouse #{currentUser.username}
-    a(href="/clubhouse") Enter clubhouse
-    a(href="/logout") Log out
+
+  a#clubhouse.button(href="/clubhouse") Enter clubhouse

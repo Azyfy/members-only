@@ -1,13 +1,18 @@
 extends layout 
 
 block content 
+
+    a(href="/clubhouse") Go to clubhouse
+
     h1 #{title}
 
     form(method="POST" action="")
         div
-            input(type="text" placeholder="Username" name="username")
-            input(type="password" placeholder="Password" name="password")
-        button(type="submit") Log In
+            div
+                input(type="text" placeholder="Username" name="username")
+            div    
+                input(type="password" placeholder="Password" name="password")
+        button.button(type="submit") Log In
 
     if errors 
         ul

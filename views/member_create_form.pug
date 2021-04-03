@@ -1,16 +1,22 @@
 extends layout 
 
 block content 
+
+    a(href="/clubhouse") Go to clubhouse
+
     h1 #{title}
 
     form(method="POST" action="")
         div
-            input(type="text" placeholder="Username" name="username")
-            if exists   
-                p!= exists
-            input(type="password" placeholder="Password" name="password")
-            input(type="password" placeholder="Confirm password" name="confirmpassword")
-        button(type="submit") Submit
+            div
+                input(type="text" placeholder="Username" name="username")
+                if exists   
+                    p!= exists
+            div
+                input(type="password" placeholder="Password" name="password")
+            div
+                input(type="password" placeholder="Confirm password" name="confirmpassword")
+        button.button(type="submit") Submit
 
     if errors 
         ul

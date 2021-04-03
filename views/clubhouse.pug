@@ -1,21 +1,32 @@
 extends layout
 
 block content
+
+    a(href="/") Go back
+
     h1= title
 
- 
-    p Welcome to the clubhouse #{currentUser.username}
+    if(currentUser)
+        p Welcome to the clubhouse #{currentUser.username}
+    else
+        p Create an account to be able to write a message
 
-    if currentUser.club_member
-        a(href="/clubhouse/create_message") New message
-    else 
-        a(href="/clubhouse/join_club") Join the club
+    if(currentUser)
+        if(!currentUser.club_member)
+            div#join-club
+                p Club members can see the author of the post
+                a(href="/clubhouse/join_club") Join the club 
+        if currentUser
+            div#new-message
+                a.new-message.button(href="/clubhouse/create_message") New message
 
     if messages 
         each message in messages
-            div 
-                if currentUser.club_member
-                    h5 #{message.member.username}
-                p #{message.message}
+            div#message-container
+                div#message-body
+                    if(currentUser)
+                        if currentUser.club_member
+                            h5 #{message.member.username}
+                    p #{message.message}
     else    
         p No messages

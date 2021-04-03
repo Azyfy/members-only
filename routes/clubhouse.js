@@ -11,7 +11,7 @@ function checkAuthentication(req, res, next) {
   res.redirect('/login')
 }
 
-router.get('/', checkAuthentication, message_controller.message_clubhouse);
+router.get('/', message_controller.message_clubhouse);
 
 
 router.get("/create_message", checkAuthentication, message_controller.message_create_get);
