@@ -1,0 +1,17 @@
+extends layout 
+
+block content 
+
+    a(href="/clubhouse") Go to clubhouse
+
+    h1 #{title}
+
+    form(method="POST" action="")
+        div 
+            input(type="password" placeholder="Enter seccretpassword" name="adminpass")
+        button.button(type="submit") Submit
+
+    if errors 
+        ul
+            for error in errors
+                li!= error.msg

@@ -42,3 +42,16 @@ exports.message_create_post = [
     }
 
 ];
+
+exports.message_create_get = (req, res, next) => {
+    res.render("message_form", { title: "Message" })
+};
+
+exports.message_delete = (req, res, next) => {
+
+    Message.findByIdAndRemove(req.params.id, (err) => {
+        if (err) { return next(err); }
+
+        res.redirect("/clubhouse");
+    });
+};

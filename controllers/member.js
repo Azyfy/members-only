@@ -61,7 +61,6 @@ exports.member_login_get = (req, res, next) => {
 };
 
 exports.member_club = (req, res, next) => {
-    console.log("ID", res.locals.currentUser.id)
 
     Member.findById(res.locals.currentUser.id, function (err, member) {
         if (err) { return next(err); }
@@ -70,3 +69,29 @@ exports.member_club = (req, res, next) => {
         res.redirect("/clubhouse");
       });
 };
+
+exports.member_admin_get = (req, res, next) => {
+    res.render("confirm_admin", { title: "Get admin status" });
+};
+
+exports.member_admin_post = [
+
+    check("adminpass", "Wrong secretpassword").trim().custom((value) => value === "secretpassword").escape(),
+
+    (req, res, next) => {
+
+        const errors = validationResult(req);
+
+        if(!errors.isEmpty()) {
+            res.render("confirm_admin", { title: "Your secret password does not match secretpassword", errors: errors.array() });
+        }
+        else {
+            Member.findById(res.locals.currentUser.id, (err, member) => {
+                if (err) { return next(err); }
+                member.admin = true;
+                member.save();
+                res.redirect("/clubhouse");
+            });
+        }
+    }
+];

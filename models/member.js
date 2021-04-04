@@ -7,6 +7,7 @@ const MemberSchema = new Schema (
         username: { type: String, required: true, maxlength: 20 },
         password_hash: { type: String, required: true, minlength: 3 },
         club_member: { type: Boolean },
+        admin: { type: Boolean, default: false },
 
     }
 );

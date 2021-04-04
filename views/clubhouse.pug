@@ -6,6 +6,8 @@ block content
 
     h1= title
 
+
+
     if(currentUser)
         p Welcome to the clubhouse #{currentUser.username}
     else
@@ -16,17 +18,26 @@ block content
             div#join-club
                 p Club members can see the author of the post
                 a(href="/clubhouse/join_club") Join the club 
+        else
+            if(!currentUser.admin)
+                p Admins can delete posts
+                a(href="/clubhouse/admin_status") Admin
         if currentUser
             div#new-message
                 a.new-message.button(href="/clubhouse/create_message") New message
 
     if messages 
         each message in messages
-            div#message-container
-                div#message-body
+            div.message-container
+                div.message-body
                     if(currentUser)
                         if currentUser.club_member
                             h5 #{message.member.username}
                     p #{message.message}
+                    
+                if(currentUser)
+                    if(currentUser.admin)
+                        a.del-btn(href=`/clubhouse/${message._id}`) X
     else    
         p No messages
+

@@ -19,4 +19,9 @@ router.post("/create_message", checkAuthentication, message_controller.message_c
 
 router.get("/join_club", checkAuthentication, member_controller.member_club)
 
+router.get("/admin_status", checkAuthentication, member_controller.member_admin_get);
+router.post("/admin_status", checkAuthentication, member_controller.member_admin_post);
+
+router.get("/:id", checkAuthentication, message_controller.message_delete);
+
 module.exports = router;
